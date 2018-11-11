@@ -11,6 +11,7 @@
 
 using namespace std;
 
+
 WINDOW *create_newwin(int height, int width, int starty, int startx)
 {
     WINDOW *local_win;
@@ -24,6 +25,13 @@ WINDOW *create_newwin(int height, int width, int starty, int startx)
 
 int main(void)
 {
+    //colour stuff
+    start_color();
+    init_pair(1, COLOR_WHITE, COLOR_BLUE);
+    bkgd(COLOR_PAIR(1));
+
+    refresh();
+
     WINDOW *main;
 
     int win_startx, win_starty, win_width, win_height;
@@ -34,13 +42,13 @@ int main(void)
     cbreak();
     
     //window params
-    win_height = LINES / 5;
-    win_width = COLS / 3;
+    win_height = LINES / 4;
+    win_width = COLS / 2;
     win_starty = 2 * (LINES - win_height) / 3;
     win_startx = (COLS - win_width) / 2;
     
     //ascii params
-    std::list <string> ascii = {" 8 8888 8 888888888o.    8 8888 8 888888888o.       8 8888 8 8888      88        ,8.       ,8."         , " 8 8888 8 8888    `88.   8 8888 8 8888    `^888.    8 8888 8 8888      88       ,888.     ,888.", " 8 8888 8 8888     `88   8 8888 8 8888        `88.  8 8888 8 8888      88      .`8888.   .`8888.", " 8 8888 8 8888     ,88   8 8888 8 8888         `88  8 8888 8 8888      88     ,8.`8888. ,8.`8888.", " 8 8888 8 8888.   ,88'   8 8888 8 8888          88  8 8888 8 8888      88    ,8'8.`8888,8^8.`8888.", " 8 8888 8 888888888P'    8 8888 8 8888          88  8 8888 8 8888      88   ,8' `8.`8888' `8.`8888.", " 8 8888 8 8888`8b        8 8888 8 8888         ,88  8 8888 8 8888      88  ,8'   `8.`88'   `8.`8888.", " 8 8888 8 8888 `8b.      8 8888 8 8888        ,88'  8 8888 ` 8888     ,8P ,8'     `8.`'     `8.`8888.", " 8 8888 8 8888   `8b.    8 8888 8 8888    ,o88P'    8 8888   8888   ,d8P ,8'       `8        `8.`8888.", " 8 8888 8 8888     `88.  8 8888 8 888888888P'       8 8888    `Y88888P' ,8'         `         `8.`8888."};
+    std::list <string> ascii = {" 8 8888 8 888888888o.    8 8888 8 888888888o.       8 8888 8 8888      88        ,8.       ,8.         ", " 8 8888 8 8888    `88.   8 8888 8 8888    `^888.    8 8888 8 8888      88       ,888.     ,888.", " 8 8888 8 8888     `88   8 8888 8 8888        `88.  8 8888 8 8888      88      .`8888.   .`8888.", " 8 8888 8 8888     ,88   8 8888 8 8888         `88  8 8888 8 8888      88     ,8.`8888. ,8.`8888.", " 8 8888 8 8888.   ,88'   8 8888 8 8888          88  8 8888 8 8888      88    ,8'8.`8888,8^8.`8888.", " 8 8888 8 888888888P'    8 8888 8 8888          88  8 8888 8 8888      88   ,8' `8.`8888' `8.`8888.", " 8 8888 8 8888`8b        8 8888 8 8888         ,88  8 8888 8 8888      88  ,8'   `8.`88'   `8.`8888.", " 8 8888 8 8888 `8b.      8 8888 8 8888        ,88'  8 8888 ` 8888     ,8P ,8'     `8.`'     `8.`8888.", " 8 8888 8 8888   `8b.    8 8888 8 8888    ,o88P'    8 8888   8888   ,d8P ,8'       `8        `8.`8888.", " 8 8888 8 8888     `88.  8 8888 8 888888888P'       8 8888    `Y88888P' ,8'         `         `8.`8888."};
     std::list <string> ascii2 = { "▇▇▇▇▇▇▇▇", "▇▇▇▇▇▇▇▇","  ▇▇▇▇  ", "  ▇▇▇▇  ","  ▇▇▇▇  ", "  ▇▇▇▇  ","▇▇▇▇▇▇▇▇", "▇▇▇▇▇▇▇▇" };
     ascii_starty = (LINES - ascii.size()) / 3;
     ascii_startx = (COLS - ascii.front().length()) / 2;
@@ -65,14 +73,25 @@ int main(void)
     int hour = aTime->tm_hour;
     //if (hour == 
     string timeOfDay = "evening";
-    string welcome = "Good " + timeOfDay + " Saull. Please enter your password to begin.";
+    string welcome = "Good " + timeOfDay + " saull. Please enter your password to begin.";
 
-    wmove(main, 3, 3);
-
+    move(win_starty + 1, win_startx + 1);
     refresh();
+
+    printw(welcome.c_str());
+    
+    // move the cursor down for the user to enter their password
+    move(win_starty + (win_height / 2), (COLS / 2) - 4);
+
+    /*
+    for (const char letter : welcome.c_str())
+    {
+        //printw(letter);
+    }*/
 
     while((ch - getch()) != 'q')
     {
+
     }
 
     endwin();

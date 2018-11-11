@@ -1,3 +1,3 @@
-exec g++ -o adm adm.cpp -lncurses
-exec sudo systemctl daemon-reload
-exec sudo systemctl restart getty@tty2.service
+sudo -u $USER g++ -o adm adm.cpp -lncurses
+systemctl daemon-reload
+systemctl restart getty@tty2.service
